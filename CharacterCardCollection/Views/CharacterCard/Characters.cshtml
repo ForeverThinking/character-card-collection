@@ -1,0 +1,27 @@
+@model ICollection<CharacterCardCollection.Models.CharacterCard.CharacterViewModel>
+
+@{
+    ViewData["Title"] = "All Characters";
+}
+
+<h1>All Your Characters</h1>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Race</th>
+        <th scope="col">Class</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var character in Model)
+    {
+        <tr>
+            <td>@character.Name</td>
+            <td>@character.Race</td>
+            <td>@character.Class</td>
+        </tr>
+    }
+    </tbody>
+</table>

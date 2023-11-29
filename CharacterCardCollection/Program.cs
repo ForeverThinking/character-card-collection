@@ -1,7 +1,10 @@
+using CharacterCardCollection.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ICharacterCardService, CharacterCardService>();
 
 var app = builder.Build();
 

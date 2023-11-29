@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterCardCollection", "CharacterCardCollection\CharacterCardCollection.csproj", "{FC5E3D1E-E356-4B1B-AE21-83F7F1205C98}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterCardCollectionTests", "CharacterCardCollectionTests\CharacterCardCollectionTests.csproj", "{44E406B9-2167-4A12-B7EE-92FD853BDB25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{FC5E3D1E-E356-4B1B-AE21-83F7F1205C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC5E3D1E-E356-4B1B-AE21-83F7F1205C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC5E3D1E-E356-4B1B-AE21-83F7F1205C98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44E406B9-2167-4A12-B7EE-92FD853BDB25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44E406B9-2167-4A12-B7EE-92FD853BDB25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44E406B9-2167-4A12-B7EE-92FD853BDB25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44E406B9-2167-4A12-B7EE-92FD853BDB25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
