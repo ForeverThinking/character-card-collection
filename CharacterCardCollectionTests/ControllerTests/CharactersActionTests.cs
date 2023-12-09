@@ -23,7 +23,7 @@ public class CharactersActionTests
     public void Characters_Called_ReturnsValidView()
     {
         // Arrange
-        var expectedValues = new Collection<CharacterViewModel>
+        var expectedValues = new Collection<CharacterModel>
         {
             new() { Id = 0, Name = "test1", Race = Race.Human, Class = CharacterClass.Cleric },
             new() { Id = 1, Name = "test2", Race = Race.Elf, Class = CharacterClass.Mage }
@@ -36,7 +36,7 @@ public class CharactersActionTests
         
         // Assert
         var viewResult = Assert.IsType<ViewResult>(result);
-        var model = Assert.IsAssignableFrom<ICollection<CharacterViewModel>>(viewResult.ViewData.Model);
+        var model = Assert.IsAssignableFrom<ICollection<CharacterModel>>(viewResult.ViewData.Model);
         model.Should().BeEquivalentTo(expectedValues);
     }
 }

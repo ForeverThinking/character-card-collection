@@ -3,8 +3,9 @@ using CharacterCardCollection.Enums;
 
 namespace CharacterCardCollection.Models.CharacterCard;
 
-public class CharacterViewModel
+public class CharacterModel
 {
+    [Key]
     public int Id { get; set; }
     [Required]
     public string? Name { get; set; }

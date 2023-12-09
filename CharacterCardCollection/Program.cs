@@ -1,10 +1,14 @@
+using CharacterCardCollection;
 using CharacterCardCollection.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICharacterCardService, CharacterCardService>();
+builder.Services.AddDbContext<CharacterCardContext>(options => 
+    options.UseNpgsql(builder.Configuration["PostgresConnection"]));
 
 var app = builder.Build();
 

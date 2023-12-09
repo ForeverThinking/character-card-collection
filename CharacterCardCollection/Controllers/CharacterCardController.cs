@@ -6,16 +6,16 @@ namespace CharacterCardCollection.Controllers;
 public class CharacterCardController : Controller
 {
     private readonly ICharacterCardService _characterCardService;
-    
+
     public CharacterCardController(ICharacterCardService characterCardService)
     {
         _characterCardService = characterCardService;
     }
-    
+
     public IActionResult Characters()
     {
         var characters = _characterCardService.GetAllCharacters();
-        
+
         return View(characters);
     }
 
