@@ -5,14 +5,14 @@ namespace CharacterCardCollection.Services;
 
 public interface ICharacterCardService
 {
-    public ICollection<CharacterViewModel> GetAllCharacters();
+    public ICollection<CharacterModel> GetAllCharacters();
 }
 
 public class CharacterCardService : ICharacterCardService
 {
-    public ICollection<CharacterViewModel> GetAllCharacters()
+    public ICollection<CharacterModel> GetAllCharacters()
     {
-        var testValues = new List<CharacterViewModel>
+        var testValues = new List<CharacterModel>
         {
             new() { Id = 0, Name = "Cornelius", Race = Race.Human, Class = CharacterClass.Cleric },
             new() { Id = 1, Name = "Felewin", Race = Race.Elf, Class = CharacterClass.Mage },
