@@ -1,9 +1,10 @@
+using CharacterCardCollection.Models.CharacterCard;
 using CharacterCardCollection.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CharacterCardCollection.Controllers;
 
-public class CharacterCardController : Controller
+public sealed class CharacterCardController : Controller
 {
     private readonly ICharacterCardService _characterCardService;
 
@@ -12,9 +13,9 @@ public class CharacterCardController : Controller
         _characterCardService = characterCardService;
     }
 
-    public IActionResult Characters()
+    public async Task<IActionResult> Characters()
     {
-        var characters = _characterCardService.GetAllCharacters();
+        var characters = await _characterCardService.GetAllCharactersAsync();
 
         return View(characters);
     }
@@ -24,9 +25,23 @@ public class CharacterCardController : Controller
         return View();
     }
 
+    [HttpGet]
     public IActionResult AddCharacter()
     {
         return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddCharacter(CharacterModel character)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(character);
+        }
+
+        await _characterCardService.AddCharacterAsync(character);
+
+        return RedirectToAction(nameof(Characters));
     }
 
     public IActionResult DeleteCharacter()
