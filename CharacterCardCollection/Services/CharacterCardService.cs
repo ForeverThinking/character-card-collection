@@ -1,25 +1,33 @@
-using CharacterCardCollection.Enums;
 using CharacterCardCollection.Models.CharacterCard;
+using Microsoft.EntityFrameworkCore;
 
 namespace CharacterCardCollection.Services;
 
 public interface ICharacterCardService
 {
-    public ICollection<CharacterModel> GetAllCharacters();
+    public Task<ICollection<CharacterModel>> GetAllCharactersAsync();
+    public Task AddCharacterAsync(CharacterModel character);
 }
 
-public class CharacterCardService : ICharacterCardService
+public sealed class CharacterCardService : ICharacterCardService
 {
-    public ICollection<CharacterModel> GetAllCharacters()
-    {
-        var testValues = new List<CharacterModel>
-        {
-            new() { Id = 0, Name = "Cornelius", Race = Race.Human, Class = CharacterClass.Cleric },
-            new() { Id = 1, Name = "Felewin", Race = Race.Elf, Class = CharacterClass.Mage },
-            new() { Id = 2, Name = "Kren'ok", Race = Race.Orc, Class = CharacterClass.Paladin },
-            new() { Id = 3, Name = "Bethelin", Race = Race.HalfElf, Class = CharacterClass.Druid }
-        };
+    private readonly CharacterCardContext _context;
 
-        return testValues;
+    public CharacterCardService(CharacterCardContext context)
+    {
+        _context = context;
+    }
+
+    public async Task<ICollection<CharacterModel>> GetAllCharactersAsync()
+    {
+        var allCharacters = await _context.Characters.ToArrayAsync();
+
+        return allCharacters;
+    }
+
+    public async Task AddCharacterAsync(CharacterModel character)
+    {
+        _context.Characters.Add(character);
+        await _context.SaveChangesAsync();
     }
 }

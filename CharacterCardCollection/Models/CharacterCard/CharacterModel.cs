@@ -3,13 +3,12 @@ using CharacterCardCollection.Enums;
 
 namespace CharacterCardCollection.Models.CharacterCard;
 
-public class CharacterModel
+public sealed class CharacterModel
 {
     [Key]
-    public int Id { get; set; }
+    public int Id { get; init; }
     [Required]
-    public string? Name { get; set; }
-
-    public Race Race { get; set; }
-    public CharacterClass Class { get; set; }
+    public string Name { get; init; } = default!;
+    public Race Race { get; init; }
+    public CharacterClass Class { get; init; }
 }
