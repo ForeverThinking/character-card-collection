@@ -13,6 +13,7 @@
             <th scope="col">Name</th>
             <th scope="col">Race</th>
             <th scope="col">Class</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
                 <td>@character.Name</td>
                 <td>@character.Race.GetDisplayName()</td>
                 <td>@character.Class</td>
+                <td><a asp-controller="CharacterCard" asp-action="Character" asp-route-Id=@character.Id>Details</a></td>
             </tr>
         }
     </tbody>

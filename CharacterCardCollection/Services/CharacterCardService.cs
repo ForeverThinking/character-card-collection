@@ -7,6 +7,7 @@ public interface ICharacterCardService
 {
     public Task<ICollection<CharacterModel>> GetAllCharactersAsync();
     public Task AddCharacterAsync(CharacterModel character);
+    public Task<CharacterModel> GetCharacterAsync(int id);
 }
 
 public sealed class CharacterCardService : ICharacterCardService
@@ -20,7 +21,9 @@ public sealed class CharacterCardService : ICharacterCardService
 
     public async Task<ICollection<CharacterModel>> GetAllCharactersAsync()
     {
-        var allCharacters = await _context.Characters.ToArrayAsync();
+        var allCharacters = await _context.Characters
+            .AsNoTracking()
+            .ToArrayAsync();
 
         return allCharacters;
     }
@@ -30,4 +33,7 @@ public sealed class CharacterCardService : ICharacterCardService
         _context.Characters.Add(character);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<CharacterModel> GetCharacterAsync(int id)
+        => await _context.Characters.AsNoTracking().SingleAsync(c => c.Id == id);
 }
