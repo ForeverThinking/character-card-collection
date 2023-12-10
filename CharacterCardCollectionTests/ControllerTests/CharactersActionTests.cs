@@ -90,4 +90,34 @@ public sealed class CharactersActionTests : TestWithSqlite
         Assert.IsType<ViewResult>(result);
         await _characterCardService.DidNotReceive().AddCharacterAsync(inValidModel);
     }
+
+    [Fact]
+    public async Task Character_Called_ReturnsValidView()
+    {
+        // Arrange
+        var seedValues = new List<CharacterModel>
+        {
+            new() { Name = "test1", Race = Race.Human, Class = CharacterClass.Cleric },
+            new() { Name = "test2", Race = Race.Elf, Class = CharacterClass.Mage }
+        };
+
+        var data = new CharacterModel
+        {
+            Name = "test1",
+            Race = Race.Human,
+            Class = CharacterClass.Cleric
+        };
+
+        await SeedCharactersAsync(seedValues);
+
+        _characterCardService.GetCharacterAsync(0).Returns(data);
+
+        // Act
+        var result = await _underTest.Character(0);
+
+        // Assert
+        var viewResult = Assert.IsType<ViewResult>(result);
+        var model = Assert.IsAssignableFrom<CharacterModel>(viewResult.ViewData.Model);
+        model.Should().BeEquivalentTo(data);
+    }
 }

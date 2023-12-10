@@ -2,7 +2,7 @@
 using CharacterCardCollection.Models.CharacterCard;
 using CharacterCardCollection.Services;
 
-namespace CharacterCardCollectionTests;
+namespace CharacterCardCollectionTests.ServiceTests;
 
 public sealed class AddCharacterTests : TestWithSqlite
 {

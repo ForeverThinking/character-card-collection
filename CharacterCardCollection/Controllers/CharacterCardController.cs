@@ -20,9 +20,11 @@ public sealed class CharacterCardController : Controller
         return View(characters);
     }
 
-    public IActionResult Character()
+    public async Task<IActionResult> Character([FromRoute] int id)
     {
-        return View();
+        var character = await _characterCardService.GetCharacterAsync(id);
+
+        return View(character);
     }
 
     [HttpGet]
