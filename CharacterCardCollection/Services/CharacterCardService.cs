@@ -9,6 +9,7 @@ public interface ICharacterCardService
     public Task AddCharacterAsync(CharacterModel character);
     public Task<CharacterModel> GetCharacterAsync(int id);
     public Task UpdateCharacterAsync(CharacterModel model);
+    public  Task DeleteCharacterAsync(CharacterModel model);
 }
 
 public sealed class CharacterCardService : ICharacterCardService
@@ -42,6 +43,12 @@ public sealed class CharacterCardService : ICharacterCardService
     public async Task UpdateCharacterAsync(CharacterModel model)
     {
         _context.Characters.Update(model);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteCharacterAsync(CharacterModel model)
+    {
+        _context.Characters.Remove(model);
         await _context.SaveChangesAsync();
     }
 }

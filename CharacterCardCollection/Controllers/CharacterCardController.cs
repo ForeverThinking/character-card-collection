@@ -72,8 +72,19 @@ public sealed class CharacterCardController : Controller
     }
 
     [HttpGet]
-    public IActionResult DeleteCharacter()
+    public async Task<IActionResult> DeleteCharacter(int id)
     {
-        return View();
+        var character = await _characterCardService.GetCharacterAsync(id);
+
+        return View(character);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteCharacter(CharacterModel model)
+    {
+        await _characterCardService.DeleteCharacterAsync(model);
+
+        return RedirectToAction(nameof(Characters));
     }
 }

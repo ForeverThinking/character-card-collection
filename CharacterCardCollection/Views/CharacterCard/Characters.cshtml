@@ -15,6 +15,7 @@
             <th scope="col">Class</th>
             <th scope="col"></th>
             <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -26,6 +27,7 @@
                 <td>@character.Class</td>
                 <td><a asp-controller="CharacterCard" asp-action="Character" asp-route-Id=@character.Id>Details</a></td>
                 <td><a asp-controller="CharacterCard" asp-action="UpdateCharacter" asp-route-Id=@character.Id>Update</a></td>
+                <td><a asp-controller="CharacterCard" asp-action="DeleteCharacter" asp-route-Id=@character.Id>Delete</a></td>
             </tr>
         }
     </tbody>
