@@ -1,5 +1,15 @@
+@model CharacterCardCollection.Models.CharacterCard.CharacterModel
+
 @{
     ViewData["Title"] = "Delete Character";
 }
 
-<h1>Delete Your Character</h1>
+<h1>Confirm Your Deletion</h1>
+
+<p>Are you sure you want to delete: @Model.Name</p>
+<form asp-controller="CharacterCard" asp-action="DeleteCharacter" method="post">
+    <input type="hidden" value="@Model.Id">
+    <div>
+        <button class="btn btn-primary" type="submit">Confirm</button>
+    </div>
+</form>

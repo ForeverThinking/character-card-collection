@@ -122,7 +122,7 @@ public sealed class CharactersActionTests : TestWithSqlite
     }
 
     [Fact]
-    public async Task GetUpdateCharacter_CalledWithValidModel_ReturnsValidRedirectAction()
+    public async Task GetUpdateCharacter_CalledWithValidModel_ReturnsValidViewResult()
     {
         // Arrange
         var validModel = new CharacterModel
@@ -180,5 +180,45 @@ public sealed class CharactersActionTests : TestWithSqlite
         //Assert
         Assert.IsType<ViewResult>(result);
         await _characterCardService.DidNotReceive().UpdateCharacterAsync(inValidModel);
+    }
+
+    [Fact]
+    public async Task GetDeleteCharacter_CalledWithValidModel_ReturnsValidViewResult()
+    {
+        // Arrange
+        var validModel = new CharacterModel
+        {
+            Id = 0,
+            Name = "Test",
+            Race = Race.Human,
+            Class = CharacterClass.Bard,
+        };
+
+        // Act
+        var result = await _underTest.DeleteCharacter(validModel.Id);
+
+        //Assert
+        Assert.IsType<ViewResult>(result);
+        await _characterCardService.Received().GetCharacterAsync(validModel.Id);
+    }
+
+    [Fact]
+    public async Task PostDeleteCharacter_CalledWithValidModel_ReturnsValidRedirectAction()
+    {
+        // Arrange
+        var validModel = new CharacterModel
+        {
+            Id = 0,
+            Name = "Test",
+            Race = Race.Human,
+            Class = CharacterClass.Bard,
+        };
+
+        // Act
+        var result = await _underTest.DeleteCharacter(validModel);
+
+        //Assert
+        Assert.IsType<RedirectToActionResult>(result);
+        await _characterCardService.Received().DeleteCharacterAsync(validModel);
     }
 }
