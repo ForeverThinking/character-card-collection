@@ -4,20 +4,28 @@ using CharacterCardCollection.Services;
 
 namespace CharacterCardCollectionTests.ServiceTests;
 
-public sealed class AddCharacterTests : TestWithSqlite
+public class UpdateCharacterTests : TestWithSqlite
 {
     private readonly ICharacterCardService _underTest;
 
-    public AddCharacterTests()
+    public UpdateCharacterTests()
     {
         _underTest = new CharacterCardService(Context);
     }
 
     [Fact]
-    public async Task AddCharacter_CalledWithData_SavesToDatabase()
+    public async Task UpdateCharacter_CalledWithData_SavesToDatabase()
     {
         // Arrange
-        var data = new CharacterModel
+        var expectedValues = new List<CharacterModel>
+        {
+            new() { Name = "test1", Race = Race.Human, Class = CharacterClass.Cleric },
+            new() { Name = "test2", Race = Race.Elf, Class = CharacterClass.Mage }
+        };
+
+        await SeedCharactersAsync(expectedValues);
+
+        var newData = new CharacterModel
         {
             Name = "Test",
             Race = Race.Human,
@@ -25,7 +33,7 @@ public sealed class AddCharacterTests : TestWithSqlite
         };
 
         // Act
-        await _underTest.AddCharacterAsync(data);
+        await _underTest.UpdateCharacterAsync(newData);
 
         // Assert
         Assert.NotNull(Context.ChangeTracker.Entries());

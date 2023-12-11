@@ -1,0 +1,34 @@
+@model CharacterCardCollection.Models.CharacterCard.CharacterModel
+
+@{
+    ViewData["Title"] = "Update Character";
+}
+
+<h1>Update your character</h1>
+
+<form asp-controller="CharacterCard" asp-action="UpdateCharacter" method="post">
+    <input type="hidden" value="@Model.Id">
+    <div class="mb-3">
+        <label asp-for="@Model.Name">Name</label>
+        <input type="text" asp-for="@Model.Name" value="@Model.Name">
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="@Model.Race">Race</label>
+        <select asp-for="@Model.Race" asp-items="Html.GetEnumSelectList<CharacterCardCollection.Enums.Race>()">
+            <option value="@Model.Race">@Model.Race</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="@Model.Class">Class</label>
+        <select asp-for="@Model.Class"
+            asp-items="Html.GetEnumSelectList<CharacterCardCollection.Enums.CharacterClass>()">
+            <option value="@Model.Class">@Model.Class</option>
+        </select>
+    </div>
+
+    <div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>

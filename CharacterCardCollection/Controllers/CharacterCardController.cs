@@ -13,6 +13,7 @@ public sealed class CharacterCardController : Controller
         _characterCardService = characterCardService;
     }
 
+    [HttpGet]
     public async Task<IActionResult> Characters()
     {
         var characters = await _characterCardService.GetAllCharactersAsync();
@@ -20,7 +21,8 @@ public sealed class CharacterCardController : Controller
         return View(characters);
     }
 
-    public async Task<IActionResult> Character([FromRoute] int id)
+    [HttpGet]
+    public async Task<IActionResult> Character(int id)
     {
         var character = await _characterCardService.GetCharacterAsync(id);
 
@@ -34,6 +36,7 @@ public sealed class CharacterCardController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddCharacter(CharacterModel character)
     {
         if (!ModelState.IsValid)
@@ -46,6 +49,29 @@ public sealed class CharacterCardController : Controller
         return RedirectToAction(nameof(Characters));
     }
 
+    [HttpGet]
+    public async Task<IActionResult> UpdateCharacter(int id)
+    {
+        var character = await _characterCardService.GetCharacterAsync(id);
+
+        return View(character);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateCharacter(CharacterModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        await _characterCardService.UpdateCharacterAsync(model);
+
+        return RedirectToAction(nameof(Characters));
+    }
+
+    [HttpGet]
     public IActionResult DeleteCharacter()
     {
         return View();
