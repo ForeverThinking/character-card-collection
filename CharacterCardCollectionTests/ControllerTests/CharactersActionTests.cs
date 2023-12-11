@@ -120,4 +120,65 @@ public sealed class CharactersActionTests : TestWithSqlite
         var model = Assert.IsAssignableFrom<CharacterModel>(viewResult.ViewData.Model);
         model.Should().BeEquivalentTo(data);
     }
+
+    [Fact]
+    public async Task GetUpdateCharacter_CalledWithValidModel_ReturnsValidRedirectAction()
+    {
+        // Arrange
+        var validModel = new CharacterModel
+        {
+            Id = 0,
+            Name = "Test",
+            Race = Race.Human,
+            Class = CharacterClass.Bard,
+        };
+
+        // Act
+        var result = await _underTest.UpdateCharacter(validModel.Id);
+
+        //Assert
+        Assert.IsType<ViewResult>(result);
+        await _characterCardService.Received().GetCharacterAsync(validModel.Id);
+    }
+
+    [Fact]
+    public async Task PostUpdateCharacter_CalledWithValidModel_ReturnsValidRedirectAction()
+    {
+        // Arrange
+        var validModel = new CharacterModel
+        {
+            Id = 0,
+            Name = "Test",
+            Race = Race.Human,
+            Class = CharacterClass.Bard,
+        };
+
+        // Act
+        var result = await _underTest.UpdateCharacter(validModel);
+
+        //Assert
+        Assert.IsType<RedirectToActionResult>(result);
+        await _characterCardService.Received().UpdateCharacterAsync(validModel);
+    }
+
+    [Fact]
+    public async Task PostUpdateCharacter_CalledWithInvalidModel_ReturnsView()
+    {
+        // Arrange
+        var inValidModel = new CharacterModel
+        {
+            Id = 0,
+            Name = null!,
+            Race = Race.Human,
+            Class = CharacterClass.Bard,
+        };
+
+        // Act
+        _underTest.ModelState.AddModelError("fake", "fake");
+        var result = await _underTest.UpdateCharacter(inValidModel);
+
+        //Assert
+        Assert.IsType<ViewResult>(result);
+        await _characterCardService.DidNotReceive().UpdateCharacterAsync(inValidModel);
+    }
 }

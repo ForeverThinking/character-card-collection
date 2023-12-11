@@ -14,6 +14,7 @@
             <th scope="col">Race</th>
             <th scope="col">Class</th>
             <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -24,6 +25,7 @@
                 <td>@character.Race.GetDisplayName()</td>
                 <td>@character.Class</td>
                 <td><a asp-controller="CharacterCard" asp-action="Character" asp-route-Id=@character.Id>Details</a></td>
+                <td><a asp-controller="CharacterCard" asp-action="UpdateCharacter" asp-route-Id=@character.Id>Update</a></td>
             </tr>
         }
     </tbody>
