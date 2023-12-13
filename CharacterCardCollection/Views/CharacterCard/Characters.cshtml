@@ -1,0 +1,34 @@
+@model ICollection<CharacterCardCollection.Models.CharacterCard.CharacterModel>
+
+@{
+    ViewData["Title"] = "All Characters";
+}
+
+<h1>All Your Characters</h1>
+
+<table class="table table-hover">
+    <caption>All Characters</caption>
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Race</th>
+            <th scope="col">Class</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var character in Model)
+        {
+            <tr>
+                <td>@character.Name</td>
+                <td>@character.Race.GetDisplayName()</td>
+                <td>@character.Class</td>
+                <td><a asp-controller="CharacterCard" asp-action="Character" asp-route-Id=@character.Id>Details</a></td>
+                <td><a asp-controller="CharacterCard" asp-action="UpdateCharacter" asp-route-Id=@character.Id>Update</a></td>
+                <td><a asp-controller="CharacterCard" asp-action="DeleteCharacter" asp-route-Id=@character.Id>Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,25 @@
+@model CharacterCardCollection.Models.CharacterCard.CharacterModel
+
+@{
+    ViewData["Title"] = "Your Character";
+}
+
+<h1>Your Character</h1>
+
+<table class="table">
+    <caption>Your character</caption>
+    <thead>
+        <tr>
+            <th class="col">Name</th>
+            <th class="col">Race</th>
+            <th class="col">Class</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Name</td>
+            <td>@Model.Race.GetDisplayName()</td>
+            <td>@Model.Class</td>
+        </tr>
+    </tbody>
+</table>
